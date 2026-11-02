@@ -65,7 +65,7 @@ step rules (x:xs) = (rewrite rules x) ++ (step rules xs)
 -- The (infinite!) list of all generations, starting with the axiom.
 
 generations :: Eq a => Rules a -> [a] -> [[a]]
-generations = undefined
+generations rules xs = iterate (step rules) xs
 
 -- Generation n of an L-system.  (expand ls 0 is the axiom.)
 
