@@ -70,7 +70,7 @@ generations rules xs = iterate (step rules) xs
 -- Generation n of an L-system.  (expand ls 0 is the axiom.)
 
 expand :: LSystem -> Int -> String
-expand = undefined
+expand (LSystem _ xs rules _ _) n = (generations rules xs) !! n
 
 -- ------------------------------------------------------------
 -- Part 2: Turtle programs
