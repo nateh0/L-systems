@@ -51,7 +51,9 @@ data LSystem = LSystem
 --   rewrite [('a', "ab")] 'z'  ==  "z"
 
 rewrite :: Eq a => Rules a -> a -> [a]
-rewrite = undefined
+rewrite rules x = case (lookup x rules) of
+  Nothing -> [x]
+  Just ys -> ys
 
 -- One generation: rewrite every symbol, all at the same time.
 --   step [('A', "AB"), ('B', "A")] "ABA"  ==  "ABAAB"
