@@ -59,7 +59,8 @@ rewrite rules x = case (lookup x rules) of
 --   step [('A', "AB"), ('B', "A")] "ABA"  ==  "ABAAB"
 
 step :: Eq a => Rules a -> [a] -> [a]
-step = undefined
+step _ [] = []
+step rules (x:xs) = (rewrite rules x) ++ (step rules xs)
 
 -- The (infinite!) list of all generations, starting with the axiom.
 
