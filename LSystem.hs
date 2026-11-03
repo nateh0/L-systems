@@ -51,6 +51,7 @@ data LSystem = LSystem
 --   rewrite [('a', "ab")] 'z'  ==  "z"
 
 rewrite :: Eq a => Rules a -> a -> [a]
+-- case-of allows pattern matching on function result
 rewrite rules x = case (lookup x rules) of
   Nothing -> [x]
   Just ys -> ys
@@ -65,11 +66,13 @@ step rules (x:xs) = (rewrite rules x) ++ (step rules xs)
 -- The (infinite!) list of all generations, starting with the axiom.
 
 generations :: Eq a => Rules a -> [a] -> [[a]]
+-- iterate creates an infinite list - xs, step rules xs, step rules (step rules xs), ...
 generations rules xs = iterate (step rules) xs
 
 -- Generation n of an L-system.  (expand ls 0 is the axiom.)
 
 expand :: LSystem -> Int -> String
+-- select the nth element from the infinite list
 expand (LSystem _ xs rules _ _) n = (generations rules xs) !! n
 
 -- ------------------------------------------------------------
