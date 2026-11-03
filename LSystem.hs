@@ -101,7 +101,13 @@ data Instr
 -- parseBlock) means nothing to the turtle: return Nothing.
 
 symbol :: Double -> Char -> Maybe Instr
-symbol = undefined
+symbol _ 'F' = Just Draw
+symbol _ 'G' = Just Draw
+symbol _ 'f' = Just Move
+symbol a '+' = Just (Turn a)
+symbol a '-' = Just (Turn (-a))
+symbol _ '|' = Just (Turn 180)
+symbol _ _   = Nothing
 
 -- Read instructions up to the first unmatched ']' (or the end of the
 -- string).  Return the instructions read, and what is left of the
