@@ -140,7 +140,7 @@ parseBlock a (x:xs)   =
 --   parse 90 "F[+F]F"  ==  [Draw, Branch [Turn 90, Draw], Draw]
 
 parse :: Double -> String -> [Instr]
-parse = undefined
+parse a s = fst (parseBlock a s)
 
 -- How many lines will this program draw?  (Count the Draws, including
 -- the ones inside branches.)
