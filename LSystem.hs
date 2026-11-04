@@ -119,19 +119,20 @@ symbol _ _   = Nothing
 parseBlock :: Double -> String -> ([Instr], String)
 -- terminate branch on empty string or ']'
 parseBlock _ []       = ( [] , [] )
-parseBlock a (']':xs) = ( [] , xs )
+parseBlock _ (']':xs) = ( [] , xs )
 -- branch
 -- create a new branch instruction, containing the remaining instructions until either a ']' or the string ends, then continue using the remainder string
 parseBlock a ('[':xs) =
-  let next = parseBlock a xs in
-    ((Branch (fst next)) : (fst (parseBlock a (snd next))) , snd (parseBlock a (snd next)))
+  let current = parseBlock a xs in -- the rest of the current branch
+    let remainder = parseBlock a (snd current) in -- everything past the current branch
+      ( Branch (fst current) : fst remainder , snd remainder )
 -- general case
 -- replace character with the corresponding instruction, skip if invalid
 parseBlock a (x:xs)   =
-  let next = parseBlock a xs in
+  let current = parseBlock a xs in -- the rest of the current branch
     case symbol a x of
-      Nothing -> (fst next , snd next)
-      Just y  -> (y : fst next , snd next)
+      Nothing -> ( fst current , snd current )
+      Just y  -> ( y : fst current , snd current )
 
 -- Turn a whole string into a turtle program.  (You may assume the
 -- brackets in the string are balanced.)
