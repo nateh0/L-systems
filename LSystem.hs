@@ -152,7 +152,12 @@ countDraws = undefined
 -- nesting 0; "F[+F][-F[F]]F" has nesting 2.
 
 nesting :: [Instr] -> Int
-nesting = undefined
+nesting xs = foldr max 0 (nestingHelper xs)
+  where
+    nestingHelper :: [Instr] -> [Int]
+    nestingHelper [] = []
+    nestingHelper (Branch xs:xss) = (1 + nesting xs) : (nestingHelper xss)
+    nestingHelper (x:xs) = nestingHelper xs
 
 -- Tidy up a program without changing the picture it draws:
 --   * adjacent turns are merged into one:  Turn 30, Turn 15  ~>  Turn 45
