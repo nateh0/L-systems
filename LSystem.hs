@@ -117,7 +117,17 @@ symbol _ _   = Nothing
 --   parseBlock 90 "F+F]G-X"  ==  ([Draw, Turn 90, Draw], "G-X")
 
 parseBlock :: Double -> String -> ([Instr], String)
-parseBlock = undefined
+-- terminate branch on empty string or ']'
+parseBlock _ []       = ( [] , [] )
+parseBlock a (']':xs) = ( [] , xs )
+-- branch
+-- create a new branch instruction, containing the remaining instructions until either a ']' or the string ends, then continue using the remainder string
+parseBlock a ('[':xs) = ((Branch (fst (parseBlock a xs))) : (fst (parseBlock a (snd (parseBlock a xs)))) , snd (parseBlock a (snd (parseBlock a xs))))
+-- general case
+-- replace character with the corresponding instruction, skip if invalid
+parseBlock a (x:xs)   = case symbol a x of
+  Nothing -> ( fst (parseBlock a xs), snd (parseBlock a xs))
+  Just y  -> ( y : fst (parseBlock a xs), snd (parseBlock a xs))
 
 -- Turn a whole string into a turtle program.  (You may assume the
 -- brackets in the string are balanced.)
