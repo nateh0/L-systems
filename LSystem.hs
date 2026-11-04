@@ -166,7 +166,14 @@ nesting xs = foldr max 0 (nestingHelper xs)
 -- Branches should be simplified on the inside too.
 
 simplify :: [Instr] -> [Instr]
-simplify = undefined
+simplify xs = let firstPass = simplifyHelp xs in if length xs == length firstPass then firstPass else simplify firstPass
+  where
+    simplifyHelp [] = []
+    simplifyHelp (Branch []:xs) = simplify xs
+    simplifyHelp (Turn 0:xs) = simplify xs
+    simplifyHelp (Branch xs:xss) = (Branch (simplify xs)) : simplify xss
+    simplifyHelp (Turn a:Turn b:xs) = if a + b /= 0 then (Turn (a + b)) : simplify xs else simplify xs
+    simplifyHelp (x:xs) = x : simplify xs
 
 -- ------------------------------------------------------------
 -- Part 3: The turtle
