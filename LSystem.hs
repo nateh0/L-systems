@@ -146,7 +146,10 @@ parse a s = fst (parseBlock a s)
 -- the ones inside branches.)
 
 countDraws :: [Instr] -> Int
-countDraws = undefined
+countDraws [] = 0
+countDraws (Draw:xs) = 1 + (countDraws xs)
+countDraws (Branch xs:xss) = countDraws xs + countDraws xss
+countDraws (x:xs) = countDraws xs
 
 -- How deeply are branches nested?  A program with no branches has
 -- nesting 0; "F[+F][-F[F]]F" has nesting 2.
