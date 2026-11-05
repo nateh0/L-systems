@@ -242,7 +242,8 @@ run t ( (Branch xs) : ys ) =
 -- All the lines drawn by a program, starting from start.
 
 draw :: [Instr] -> [Line]
-draw = undefined
+draw [] = []
+draw i = snd (run start i)
 
 -- ------------------------------------------------------------
 -- Part 4: SVG output
