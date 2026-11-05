@@ -225,7 +225,19 @@ turn a (Turtle p b) = Turtle p (a + b)
 -- branch.
 
 run :: Turtle -> [Instr] -> (Turtle, [Line])
-run = undefined
+run t [] = ( t , [] )
+run t (Move:xs)         = run (forward t) xs
+run t ( (Turn a) : xs ) = run (turn a t) xs
+-- move and draw line
+run t (Draw:xs) =
+  let t' = forward t in -- the new position of the turtle
+    let next = run (t') xs in -- the result of everything after this
+      ( fst next , (position t, position t') : snd next )
+-- branch
+-- run the contents of the branch and append the results of the following instructions, then continue with the turtle before the branch
+run t ( (Branch xs) : ys ) =
+  let remainder = run t ys in -- the result of the rest of the instructions
+    ( fst remainder , snd (run t xs) ++ snd remainder )
 
 -- All the lines drawn by a program, starting from start.
 
