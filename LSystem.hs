@@ -217,7 +217,7 @@ forward (Turtle (x, y) a) =
 -- Turn anticlockwise by the given number of degrees.
 
 turn :: Double -> Turtle -> Turtle
-turn a (Turtle p a') = Turtle p (a + a')
+turn a (Turtle p b) = Turtle p (a + b)
 
 -- Run a program: return where the turtle ends up, and every line it
 -- drew, in the order it drew them.  A Branch does not move the
