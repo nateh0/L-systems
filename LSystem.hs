@@ -166,13 +166,22 @@ nesting (_:xs)               = nesting xs
 -- Branches should be simplified on the inside too.
 
 simplify :: [Instr] -> [Instr]
+-- terminate on empty list
 simplify []                           = []
+-- sum sequential turns, remove if they sum to 0
 simplify ( (Turn 0) : xs )            = simplify xs
 simplify ( (Turn a) : (Turn b) : xs ) = simplify ( (Turn (a + b)) : xs )
+-- if the branch simplifies to nothing, remove it and combine either side, then simplify
 simplify ( x : (Branch ys) : zs )     =
   case simplify ys of
     []  -> simplify (x:zs)
     ys' -> ( x : (Branch ys') : simplify zs )
+-- special case for if the list begins with a branch
+simplify ( (Branch xs) : ys)          =
+  case simplify xs of
+    []  -> simplify ys
+    xs' -> ( (Branch xs') : simplify ys )
+-- general case
 simplify (x:xs)                       = ( x : (simplify xs) )
 
 -- ------------------------------------------------------------
