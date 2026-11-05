@@ -169,9 +169,11 @@ simplify :: [Instr] -> [Instr]
 simplify [] = []
 simplify ((Turn 0):xs) = simplify xs
 simplify ((Turn a):(Turn b):xs) = simplify ( (Turn (a + b)) : xs )
-simplify (xs:(Branch []):ys) = simplify (xs:ys)
-simplify ((Branch xs):ys) = ( (Branch (simplify xs)) : simplify ys )
-simplify (x:xs) = ( x : simplify xs )
+simplify (x:(Branch ys):zs) =
+  case simplify ys of
+    []  -> simplify (x:zs)
+    yss -> ( x : (Branch yss) : simplify zs)
+simplify (x:xs) = ( x : (simplify xs) )
 
 -- ------------------------------------------------------------
 -- Part 3: The turtle
