@@ -243,7 +243,7 @@ run t ( (Branch xs) : ys ) =
 
 draw :: [Instr] -> [Line]
 draw [] = []
-draw i = snd (run start i)
+draw xs = snd (run start xs)
 
 -- ------------------------------------------------------------
 -- Part 4: SVG output
