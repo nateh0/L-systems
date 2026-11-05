@@ -210,7 +210,7 @@ position (Turtle p _) = p
 -- Remember that cos and sin expect radians.
 
 forward :: Turtle -> Turtle
-forward = undefined
+forward (Turtle (x,y) a) = Turtle ((x + (cos (a * (pi / 180))),y + (sin (a * (pi / 180))))) a
 
 -- Turn anticlockwise by the given number of degrees.
 
