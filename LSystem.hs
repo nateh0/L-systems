@@ -155,12 +155,9 @@ countDraws (_:xs) = countDraws xs
 -- nesting 0; "F[+F][-F[F]]F" has nesting 2.
 
 nesting :: [Instr] -> Int
-nesting xs = foldr max 0 (nestingHelper xs)
-  where
-    nestingHelper :: [Instr] -> [Int]
-    nestingHelper [] = []
-    nestingHelper (Branch xs:xss) = (1 + nesting xs) : (nestingHelper xss)
-    nestingHelper (x:xs) = nestingHelper xs
+nesting ((Branch xs):ys) = max (1 + nesting xs) (nesting ys)
+nesting (_:xs) = nesting xs;
+nesting [] = 0;
 
 -- Tidy up a program without changing the picture it draws:
 --   * adjacent turns are merged into one:  Turn 30, Turn 15  ~>  Turn 45
