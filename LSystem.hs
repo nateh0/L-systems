@@ -125,14 +125,14 @@ parseBlock _ (']':xs) = ( [] , xs )
 parseBlock a ('[':xs) =
   let current = parseBlock a xs in -- the rest of the current branch
     let remainder = parseBlock a (snd current) in -- everything past the current branch
-      ( Branch (fst current) : fst remainder , snd remainder )
+      ( (Branch (fst current)) : (fst remainder) , snd remainder )
 -- general case
 -- replace character with the corresponding instruction, skip if invalid
 parseBlock a (x:xs)   =
   let current = parseBlock a xs in -- the rest of the current branch
     case symbol a x of
       Nothing -> ( fst current , snd current )
-      Just y  -> ( y : fst current , snd current )
+      Just y  -> ( y : (fst current) , snd current )
 
 -- Turn a whole string into a turtle program.  (You may assume the
 -- brackets in the string are balanced.)
@@ -146,18 +146,18 @@ parse a s = fst (parseBlock a s)
 -- the ones inside branches.)
 
 countDraws :: [Instr] -> Int
-countDraws [] = 0
-countDraws (Draw:xs) = 1 + countDraws xs
-countDraws ((Branch xs):ys) = countDraws xs + countDraws ys
-countDraws (_:xs) = countDraws xs
+countDraws []                   = 0
+countDraws (Draw:xs)            = 1 + countDraws xs
+countDraws ( (Branch xs) : ys ) = countDraws xs + countDraws ys
+countDraws (_:xs)               = countDraws xs
 
 -- How deeply are branches nested?  A program with no branches has
 -- nesting 0; "F[+F][-F[F]]F" has nesting 2.
 
 nesting :: [Instr] -> Int
-nesting ((Branch xs):ys) = max (1 + nesting xs) (nesting ys)
-nesting (_:xs) = nesting xs
-nesting [] = 0
+nesting []                   = 0
+nesting ( (Branch xs) : ys ) = max (1 + nesting xs) (nesting ys)
+nesting (_:xs)               = nesting xs
 
 -- Tidy up a program without changing the picture it draws:
 --   * adjacent turns are merged into one:  Turn 30, Turn 15  ~>  Turn 45
@@ -166,14 +166,14 @@ nesting [] = 0
 -- Branches should be simplified on the inside too.
 
 simplify :: [Instr] -> [Instr]
-simplify [] = []
-simplify ((Turn 0):xs) = simplify xs
-simplify ((Turn a):(Turn b):xs) = simplify ( (Turn (a + b)) : xs )
-simplify (x:(Branch ys):zs) =
+simplify []                           = []
+simplify ( (Turn 0) : xs )            = simplify xs
+simplify ( (Turn a) : (Turn b) : xs ) = simplify ( (Turn (a + b)) : xs )
+simplify ( x : (Branch ys) : zs )     =
   case simplify ys of
     []  -> simplify (x:zs)
-    ys' -> ( x : (Branch ys') : simplify zs)
-simplify (x:xs) = ( x : (simplify xs) )
+    ys' -> ( x : (Branch ys') : simplify zs )
+simplify (x:xs)                       = ( x : (simplify xs) )
 
 -- ------------------------------------------------------------
 -- Part 3: The turtle
