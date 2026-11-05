@@ -172,7 +172,7 @@ simplify ((Turn a):(Turn b):xs) = simplify ( (Turn (a + b)) : xs )
 simplify (x:(Branch ys):zs) =
   case simplify ys of
     []  -> simplify (x:zs)
-    yss -> ( x : (Branch yss) : simplify zs)
+    ys' -> ( x : (Branch ys') : simplify zs)
 simplify (x:xs) = ( x : (simplify xs) )
 
 -- ------------------------------------------------------------
