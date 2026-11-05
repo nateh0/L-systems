@@ -156,8 +156,8 @@ countDraws (_:xs) = countDraws xs
 
 nesting :: [Instr] -> Int
 nesting ((Branch xs):ys) = max (1 + nesting xs) (nesting ys)
-nesting (_:xs) = nesting xs;
-nesting [] = 0;
+nesting (_:xs) = nesting xs
+nesting [] = 0
 
 -- Tidy up a program without changing the picture it draws:
 --   * adjacent turns are merged into one:  Turn 30, Turn 15  ~>  Turn 45
