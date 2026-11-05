@@ -242,7 +242,6 @@ run t ( (Branch xs) : ys ) =
 -- All the lines drawn by a program, starting from start.
 
 draw :: [Instr] -> [Line]
-draw [] = []
 draw xs = snd (run start xs)
 
 -- ------------------------------------------------------------
