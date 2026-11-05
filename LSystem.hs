@@ -215,7 +215,7 @@ forward (Turtle (x,y) a) = Turtle ((x + (cos (a * (pi / 180))),y + (sin (a * (pi
 -- Turn anticlockwise by the given number of degrees.
 
 turn :: Double -> Turtle -> Turtle
-turn = undefined
+turn a (Turtle p a') = Turtle p (a + a')
 
 -- Run a program: return where the turtle ends up, and every line it
 -- drew, in the order it drew them.  A Branch does not move the
