@@ -166,14 +166,12 @@ nesting [] = 0;
 -- Branches should be simplified on the inside too.
 
 simplify :: [Instr] -> [Instr]
-simplify xs = let firstPass = simplifyHelp xs in if length xs == length firstPass then firstPass else simplify firstPass
-  where
-    simplifyHelp [] = []
-    simplifyHelp (Branch []:xs) = simplify xs
-    simplifyHelp (Turn 0:xs) = simplify xs
-    simplifyHelp (Branch xs:xss) = (Branch (simplify xs)) : simplify xss
-    simplifyHelp (Turn a:Turn b:xs) = if a + b /= 0 then (Turn (a + b)) : simplify xs else simplify xs
-    simplifyHelp (x:xs) = x : simplify xs
+simplify [] = []
+simplify ((Turn 0):xs) = simplify xs
+simplify ((Turn a):(Turn b):xs) = simplify ( (Turn (a + b)) : xs )
+simplify (xs:(Branch []):ys) = simplify (xs:ys)
+simplify ((Branch xs):ys) = ( (Branch (simplify xs)) : simplify ys )
+simplify (x:xs) = ( x : simplify xs )
 
 -- ------------------------------------------------------------
 -- Part 3: The turtle
