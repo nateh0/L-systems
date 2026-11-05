@@ -260,7 +260,11 @@ num x = printf "%.2f" (fromIntegral (round (x * 100) :: Integer) / 100 :: Double
 --   bounds [((0,0),(1,2)), ((-1,5),(3,1))]  ==  ((-1,0),(3,5))
 
 bounds :: [Line] -> (Point, Point)
-bounds = undefined
+bounds []                     = undefined
+bounds ( ((a,b),(c,d)) : [] ) = ( (min a c, min b d) , (max a c, max b d) )
+bounds ( ((a,b),(c,d)) : xs ) =
+  let corners = bounds xs in
+    ( ( min (min a c) (fst $ fst corners) , (min (min b d) (snd $ fst corners)) ) , ( max (max a c) (fst $ snd corners) , (max (max b d) (snd $ snd corners)) ) )
 
 -- SVG's y-axis points DOWN the page, so we flip every point upside
 -- down when we write it out:  (x, y)  is written as  "x -y".
