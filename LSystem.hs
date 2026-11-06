@@ -304,7 +304,17 @@ svgPath xs = init $ foldr ( \(a, b) ys -> "M " ++ (svgPoint a) ++ " L " ++ (svgP
 --   pad = max 1 (0.05 * max width height)
 
 toSVG :: [Line] -> String
-toSVG = undefined
+toSVG xs = 
+  let b = bounds xs in
+    let w = (fst $ snd b) - (fst $ fst b) in
+      let h = (snd $ snd b) - (snd $ fst b) in
+        let pad = max 1 (0.05 * max w h) in
+          "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"800\" height=\"800\" viewBox=\""
+          ++ num ((fst $ fst b) - pad) ++ " "
+          ++ num (-(snd $ snd b) - pad) ++ " "
+          ++ num (w + (2 * pad)) ++ " "
+          ++ num (h + (2 * pad)) ++ "\">"
+          ++ "<path fill=\"none\" stroke=\"black\" stroke-width=\"1.5\" vector-effect=\"non-scaling-stroke\" d=\"" ++ svgPath xs ++ "\"/></svg>"
 
 -- Put it all together: the SVG picture of generation n.
 
