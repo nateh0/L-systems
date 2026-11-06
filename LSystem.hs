@@ -282,9 +282,8 @@ svgPoint (x, y) = (num x) ++ " " ++ (num (-y))
 --     ==  "M 0.00 0.00 L 1.00 0.00 M 1.00 0.00 L 1.00 -1.00"
 
 svgPath :: [Line] -> String
-svgPath []              = []
-svgPath ( (a, b) : [] ) = "M " ++ (svgPoint a) ++ " L " ++ (svgPoint b)
-svgPath ( (a, b) : xs ) = "M " ++ (svgPoint a) ++ " L " ++ (svgPoint b) ++ " " ++ (svgPath xs)
+svgPath [] = []
+svgPath xs = init $ foldr ( \(a, b) ys -> "M " ++ (svgPoint a) ++ " L " ++ (svgPoint b) ++ " " ++ ys ) "" xs -- init removes extra space at the end
 
 -- A complete SVG file.  It should look like this, with one path
 -- containing all the lines (how you lay out the spaces and line
