@@ -272,7 +272,7 @@ bounds ( ((a,b),(c,d)) : xs ) =
 --   svgPoint (1.5, 2)  ==  "1.50 -2.00"
 
 svgPoint :: Point -> String
-svgPoint = undefined
+svgPoint (x, y) = (num x) ++ " " ++ (num (-y))
 
 -- The drawing commands for an SVG path.  Each line (p, q) becomes
 -- "M p L q" ("move to p, then draw a line to q"), and the commands
