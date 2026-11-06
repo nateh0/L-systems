@@ -282,7 +282,9 @@ svgPoint (x, y) = (num x) ++ " " ++ (num (-y))
 --     ==  "M 0.00 0.00 L 1.00 0.00 M 1.00 0.00 L 1.00 -1.00"
 
 svgPath :: [Line] -> String
-svgPath = undefined
+svgPath []              = []
+svgPath ( (a, b) : [] ) = "M " ++ (svgPoint a) ++ " L " ++ (svgPoint b)
+svgPath ( (a, b) : xs ) = "M " ++ (svgPoint a) ++ " L " ++ (svgPoint b) ++ " " ++ (svgPath xs)
 
 -- A complete SVG file.  It should look like this, with one path
 -- containing all the lines (how you lay out the spaces and line
