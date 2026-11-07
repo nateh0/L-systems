@@ -260,7 +260,7 @@ num x = printf "%.2f" (fromIntegral (round (x * 100) :: Integer) / 100 :: Double
 --   bounds [((0,0),(1,2)), ((-1,5),(3,1))]  ==  ((-1,0),(3,5))
 
 bounds :: [Line] -> (Point, Point)
-bounds []                     = undefined
+bounds []                     = ( (0, 0) , (0, 0) )
 bounds ( ((a,b),(c,d)) : [] ) = ( (min a c, min b d) , (max a c, max b d) )
 bounds ( ((a,b),(c,d)) : xs ) =
   let corners = bounds xs in
