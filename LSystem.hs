@@ -319,7 +319,8 @@ toSVG xs =
 -- Put it all together: the SVG picture of generation n.
 
 render :: LSystem -> Int -> String
-render = undefined
+-- render (LSystem name x r a d) n = toSVG $ draw $ simplify $ parse a (expand (LSystem name x r a d) n)
+render ls n = toSVG $ draw $ simplify $ parse (angle ls) (expand ls n)
 
 -- ------------------------------------------------------------
 -- The gallery (provided)
