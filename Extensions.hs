@@ -15,3 +15,6 @@ kochIsland = LSystem "kochIsland" "F-F-F-F" [('F', "F+FF-FF-F-F+F+FF-F-F+F+FF+FF
 islandsLakes :: LSystem
 islandsLakes = LSystem "islandsLakes" "F+F+F+F" [('F', "F+f-FF+F+FF+Ff+FF-f+FF-F-FF-Ff-FFF"), ('f', "ffffff")] 90 3
 
+-- p10 fig 1.9b
+squarePattern :: LSystem
+squarePattern = LSystem "squarePattern" "F-F-F-F" [('F', "FF-F-F-F-FF")] 90 5
