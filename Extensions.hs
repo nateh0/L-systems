@@ -33,3 +33,7 @@ gosperHex = LSystem "gosperHex" "FX" [('X', "X+YF+ +YF-FX--FXFX-YF+"), ('Y', "-F
 -- replaces the middle third of each edge of each new hexagon with another hexagon
 hexagon :: LSystem
 hexagon = LSystem "hexagon" "F-F-F-F-F-F" [('F', "G[+F-F-F-F-F-F]ffG"), ('G', "GGGG"), ('f', "ffff")] 60 3
+
+-- replaces the middle third of each edge of with another hexagon
+hexagon2 :: LSystem
+hexagon2 = LSystem "hexagon2" "F-F-F-F-F-F" [('F', "F[+F-F-F-F-F-F]ffF"), ('f', "ffff")] 60 3
