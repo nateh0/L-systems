@@ -10,3 +10,8 @@ fractalTree = LSystem "fractalTree" "X" [('X', "F[-X]+X"), ('F', "FF")] 45 10
 -- p9 fig 1.7a
 kochIsland :: LSystem
 kochIsland = LSystem "kochIsland" "F-F-F-F" [('F', "F+FF-FF-F-F+F+FF-F-F+F+FF+FF-F")] 90 3
+
+-- p9 fig 1.8
+islandsLakes :: LSystem
+islandsLakes = LSystem "islandsLakes" "F+F+F+F" [('F', "F+f-FF+F+FF+Ff+FF-f+FF-F-FF-Ff-FFF"), ('f', "ffffff")] 90 3
+
