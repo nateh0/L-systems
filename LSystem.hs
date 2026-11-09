@@ -263,8 +263,8 @@ bounds :: [Line] -> (Point, Point)
 bounds []                     = ( (0, 0) , (0, 0) )
 bounds ( ((a,b),(c,d)) : [] ) = ( (min a c, min b d) , (max a c, max b d) )
 bounds ( ((a,b),(c,d)) : xs ) =
-  let corners = bounds xs in
-    ( ( min (min a c) (fst $ fst corners) , (min (min b d) (snd $ fst corners)) ) , ( max (max a c) (fst $ snd corners) , (max (max b d) (snd $ snd corners)) ) )
+  let ((e,f),(g,h)) = bounds xs in
+    ( ( min (min a c) e , (min (min b d) f) ) , ( max (max a c) g , (max (max b d) h) ) )
 
 -- SVG's y-axis points DOWN the page, so we flip every point upside
 -- down when we write it out:  (x, y)  is written as  "x -y".
