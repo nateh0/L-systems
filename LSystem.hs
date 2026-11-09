@@ -311,7 +311,7 @@ toSVG xs =
         let pad = max 1 (0.05 * max w h) in
           "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"800\" height=\"800\" viewBox=\""
           ++ num (a - pad) ++ " "
-          ++ num (-(d) - pad) ++ " "
+          ++ num (-d - pad) ++ " "
           ++ num (w + (2 * pad)) ++ " "
           ++ num (h + (2 * pad)) ++ "\">"
           ++ "<path fill=\"none\" stroke=\"black\" stroke-width=\"1.5\" vector-effect=\"non-scaling-stroke\" d=\"" ++ svgPath xs ++ "\"/></svg>"
