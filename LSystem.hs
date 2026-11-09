@@ -305,13 +305,13 @@ svgPath xs = init $ foldr ( \(a, b) ys -> "M " ++ (svgPoint a) ++ " L " ++ (svgP
 
 toSVG :: [Line] -> String
 toSVG xs = 
-  let b = bounds xs in
-    let w = (fst $ snd b) - (fst $ fst b) in
-      let h = (snd $ snd b) - (snd $ fst b) in
+  let ((a,b),(c,d)) = bounds xs in
+    let w = c - a in
+      let h = d - b in
         let pad = max 1 (0.05 * max w h) in
           "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"800\" height=\"800\" viewBox=\""
-          ++ num ((fst $ fst b) - pad) ++ " "
-          ++ num (-(snd $ snd b) - pad) ++ " "
+          ++ num (a - pad) ++ " "
+          ++ num (-(d) - pad) ++ " "
           ++ num (w + (2 * pad)) ++ " "
           ++ num (h + (2 * pad)) ++ "\">"
           ++ "<path fill=\"none\" stroke=\"black\" stroke-width=\"1.5\" vector-effect=\"non-scaling-stroke\" d=\"" ++ svgPath xs ++ "\"/></svg>"
