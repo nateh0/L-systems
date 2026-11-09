@@ -18,3 +18,10 @@ islandsLakes = LSystem "islandsLakes" "F+F+F+F" [('F', "F+f-FF+F+FF+Ff+FF-f+FF-F
 -- p10 fig 1.9b
 squarePattern :: LSystem
 squarePattern = LSystem "squarePattern" "F-F-F-F" [('F', "FF-F-F-F-FF")] 90 5
+
+-- p12 fig 1.11a
+-- adapted from the original description with the following rule:
+-- Fl = FX, except first in replacement which is X
+-- Fr = YF, except last in replacement which is Y
+gosperHex :: LSystem
+gosperHex = LSystem "gosperHex" "FX" [('X', "X+YF+ +YF-FX--FXFX-YF+"), ('Y', "-FX+YFYF++YF+FX--FX-Y")] 60 12
