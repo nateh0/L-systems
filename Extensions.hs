@@ -26,7 +26,7 @@ squarePattern = LSystem "squarePattern" "F-F-F-F" [('F', "FF-F-F-F-FF")] 90 5
 -- Fl = FX, except first in replacement which is X
 -- Fr = YF, except last in replacement which is Y
 gosperHex :: LSystem
-gosperHex = LSystem "gosperHex" "FX" [('X', "X+YF+ +YF-FX--FXFX-YF+"), ('Y', "-FX+YFYF++YF+FX--FX-Y")] 60 12
+gosperHex = LSystem "gosperHex" "FX" [('X', "X+YF+ +YF-FX--FXFX-YF+"), ('Y', "-FX+YFYF++YF+FX--FX-Y")] 60 4
 
 -- original
 
