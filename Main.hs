@@ -10,6 +10,7 @@
 -- ============================================================
 
 import LSystem
+import Extensions
 import System.Environment (getArgs)
 
 save :: LSystem -> Int -> IO ()
