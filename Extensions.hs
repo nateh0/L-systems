@@ -37,3 +37,5 @@ hexagon = LSystem "hexagon" "F-F-F-F-F-F" [('F', "G[+F-F-F-F-F-F]ffG"), ('G', "G
 -- replaces the middle third of each edge of with another hexagon
 hexagon2 :: LSystem
 hexagon2 = LSystem "hexagon2" "F-F-F-F-F-F" [('F', "F[+F-F-F-F-F-F]ffF"), ('f', "ffff")] 60 3
+
+gallery2 = [fractalTree, kochIsland, islandsLakes, squarePattern, gosperHex, hexagon, hexagon2]
