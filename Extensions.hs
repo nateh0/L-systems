@@ -1,3 +1,5 @@
+-- added a handful of new L-systems
+
 module Extensions where
 import LSystem
 
